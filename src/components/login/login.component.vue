@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import GuestComponent from './guest.component.vue';
-import UserComponent from './user.component.vue';
+import './login.scss';
+import GuestComponent from './guest/guest.component.vue';
+import UserComponent from './user/user.component.vue';
 
 const loginType = ref(0);
 const setLoginType = (type: number) => {

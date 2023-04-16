@@ -16,6 +16,18 @@ class UserService {
             onFail();
         }
     }
+
+    static async avatarSeed() {
+        try {
+            useAuthStore().setSeed({state: 'loading'});
+            const response = await instance.get('avatars');
+            const data = response.data as { seed: number; url: string };
+            useAuthStore().setSeed({seed: data.url, state: 'finished'});
+        } catch(err) {
+            useAuthStore().setSeed({state: 'error'});
+            console.log(err);
+        }
+    }
     
 }
 

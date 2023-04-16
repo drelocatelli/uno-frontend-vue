@@ -7,31 +7,27 @@ import RepelFx from '../fx/repel.vue';
 import IndexFx from './index.animation';
 import LoginComponent from '../login/login.component.vue';
 import UserService from '../../services/user';
-import authStore from '../../store/auth/auth';
+import useAuthStore from '../../store/auth/auth';
+import { storeToRefs } from 'pinia';
 
-const loadAuth = ref(true);
-const isAuthLoading = authStore().auth.state == 'loading';
+const authStore = storeToRefs(useAuthStore());
+const isAuthLoading = authStore.auth.value.state == 'loading';
 
 onMounted(async () => {
     if(isAuthLoading) {
         IndexFx.loading().start();
         await UserService.validate();
         IndexFx.loading().end();
+        await UserService.avatarSeed();
     }
 });
-
-watch(() => authStore().auth, (value) => {
-    if(value.state == 'finished') {
-        loadAuth.value = false;
-    }
-})
 
 </script>
 
 <template>
     <div class="container">
         <a href="/">
-            <RepelFx v-bind:off="loadAuth">
+            <RepelFx v-bind:off="authStore.auth.value.state == 'loading'">
                 <img src="assets/img/logo.png" class="logo" alt="logo" />
             </RepelFx>
         </a>
