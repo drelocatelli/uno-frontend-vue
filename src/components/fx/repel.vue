@@ -2,10 +2,13 @@
 import { onMounted, ref } from 'vue';
 import gsap from 'gsap';
 
+const props = defineProps(['off']);
 const element = ref(null);
 
 onMounted(() => {
-    repelAnim();
+    if(!props.off) {
+        repelAnim();
+    }
 });
 
 const repelAnim = () => {

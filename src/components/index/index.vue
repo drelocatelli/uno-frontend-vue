@@ -1,33 +1,38 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import './index.scss';
 import '../../basic.scss';
 import '../../components.css';
 import RepelFx from '../fx/repel.vue';
+import IndexFx from './index.animation';
+import LoginComponent from '../login/login.component.vue';
+import UserService from '../../services/user';
+import authStore from '../../store/auth/auth';
 
-const loginType = ref(0);
+const isLoading = ref(true);
 
-const setLoginType = (type: number) => {
-    loginType.value = type;
-};
+onMounted(async () => {
+    if(authStore().auth.state == 'loading') {
+        IndexFx.loading().start();
+        await UserService.validate();
+        IndexFx.loading().end();
+    }
+});
 
 </script>
 
 <template>
     <div class="container">
-        <router-link to="/">
-            <RepelFx>
+        <a href="/">
+            <RepelFx v-bind:off="isLoading">
                 <img src="assets/img/logo.png" class="logo" alt="logo" />
             </RepelFx>
-        </router-link>
-        <div class="box">
-            <div class="tabs">
-                <div class="tab" :class="{active: loginType == 0}" @click="setLoginType(0)">Convidado</div>
-                <div class="tab" :class="{active: loginType == 1}"  @click="setLoginType(1)">Fazer Login</div>
-            </div>
-            <div class="content">
-                aaaaaaaaaaaa
-            </div>
-        </div>
+        </a>
+        <template v-if="isLoading">
+            <img src="assets/img/loading/loading.svg" class="initialLogo" style="opacity: 0;" />
+        </template>
+        <template v-else>
+            <LoginComponent />
+        </template>
     </div>
 </template>
