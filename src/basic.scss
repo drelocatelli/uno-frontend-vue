@@ -1,0 +1,23 @@
+* {
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('/assets/img/bg02.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    animation-fill-mode: forwards;
+}
+
+body.animated {
+    animation: animation-background 35s ease-in-out forwards;
+}
+
+@keyframes animation-background { 
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+img{ filter: none!important;}
