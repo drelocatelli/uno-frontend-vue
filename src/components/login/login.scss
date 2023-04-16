@@ -42,11 +42,19 @@
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                background-color: #9c9c9c;
+                background-color: #fff;
                 border: 2px solid #fff;
                 border-radius: 15px;
                 contain: content;
                 box-shadow: 7px 10px 0px #000000a8;
+
+                .loading {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%,-50%);
+                }
+                
             }
 
             .reload-icon {

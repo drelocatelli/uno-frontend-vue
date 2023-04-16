@@ -3,6 +3,8 @@ import { storeToRefs } from 'pinia';
 import useAuthStore from '../../store/auth/auth';
 import UserService from '../../services/user';
 import { ref } from 'vue';
+import ColorfulLoading from '../loading/colorful.component.vue';
+import { sleep } from '../../utils/sleepAsync';
 
 const avatarStore = storeToRefs(useAuthStore());
 
@@ -19,16 +21,21 @@ function changeAvatar(e: Event) {
     }
 }
 
-function loadAvatar() {
+async function loadAvatar() {
+    await sleep(1000);
     isLoading.value = false;
 }
 </script>
 
 <template>
     <div class="avatar">
+        {{ isLoading }}
         <div class="avatar-icon">
-            <img v-bind:src="avatarStore.auth.value.avatarSeed?.seed" v-bind:onload="loadAvatar" class="avatar" />
+            <template v-if="isLoading">
+                <ColorfulLoading class="loading" />
+            </template>
+            <img v-bind:src="avatarStore.auth.value.avatarSeed?.seed" v-bind:onload="loadAvatar" :style="isLoading ? 'display:none': 'display: block'" class="avatar" />
         </div>
-        <img src="assets/img/reload.png" class="reload-icon" :class="isLoading ? 'rotate': ''" @click="changeAvatar" />
+        <img src="assets/img/reload.png" class="reload-icon" :class="isLoading ? 'rotate' : ''" @click="changeAvatar" />
     </div>
 </template>
