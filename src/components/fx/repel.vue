@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import gsap from 'gsap';
 
 const props = defineProps(['off']);
 const element = ref(null);
 
-onMounted(() => {
-    if(!props.off) {
+watch(() => props.off, (value) => {
+    if(!value) {
         repelAnim();
     }
-});
+})
 
 const repelAnim = () => {
     const selector = ((element.value! as HTMLElement).children[0] as HTMLElement);
