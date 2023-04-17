@@ -10,6 +10,7 @@ import UserService from '../../services/user';
 import useAuthStore from '../../store/auth/auth';
 import { storeToRefs } from 'pinia';
 import CardsFallLoading from '../loading/cardsFall/cardsFall.component.vue';
+import CardsMoveLoading from '../loading/cardsMove/cardsMove.vue';
 
 const authStore = storeToRefs(useAuthStore());
 const isAuthLoading = authStore.auth.value.state == 'loading';
@@ -32,7 +33,7 @@ onMounted(async () => {
                     <img src="assets/img/logo.png" class="logo" alt="logo" />
                 </RepelFx>
             </a>
-            <img src="assets/img/loading/loading.svg" class="initialLogo" style="opacity: 0;" />
+            <CardsMoveLoading class="initialLogo" width="200px" style="opacity: 0;"  />
             <LoginComponent />
         </div>
     </CardsFallLoading>
