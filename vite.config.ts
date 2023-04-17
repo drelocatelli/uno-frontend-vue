@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue({
     template: {
       transformAssetUrls: {
-        includeAbsolute: false
+        includeAbsolute: false,
       }
     }
   })],

@@ -2,7 +2,6 @@ import gsap from 'gsap';
 import cardsJSON from '../../../cards.json';
 
 function CardsFallFx() {
-
     let startAnim = () => {
         (function () {
             'use strict';
@@ -95,18 +94,20 @@ function CardsFallFx() {
             init();
         })();
     };
-    
+
     const generateCardBg = (card: HTMLDivElement) => {
         const randomIndex = Math.floor(Math.random() * 2);
         const randomArray = randomIndex === 0 ? cardsJSON.cards : cardsJSON.wildcard;
         const randomCard = randomArray[Math.floor(Math.random() * randomArray.length)];
-        card.style.setProperty('--bgUrl', `url('assets/img/cards/${randomCard}.png')`);
+        // card.style.setProperty('--bgUrl', `url('./assets/img/cards/${randomCard}.png')`);
+        const generatedUrl = `/assets/img/cards/${randomCard}.png`;
+        card.style.setProperty('--bgUrl', `url('${generatedUrl}')`);
     };
-    
+
     const removeInitialCards = () => {
         const cardContainer = document.querySelector('#table.cardsFall') as HTMLDivElement;
-        console.log(cardContainer)
-        if(getComputedStyle(cardContainer).animationName != 'none') {
+        console.log(cardContainer);
+        if (getComputedStyle(cardContainer).animationName != 'none') {
             setTimeout(() => {
                 console.log('Loading animation stopped');
                 cardContainer.innerHTML = '';
@@ -117,8 +118,7 @@ function CardsFallFx() {
     return {
         removeInitialCards,
         startAnim,
-    }
-
+    };
 }
 
 export default CardsFallFx;
