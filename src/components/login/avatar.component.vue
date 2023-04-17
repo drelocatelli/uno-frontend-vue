@@ -23,7 +23,7 @@ function changeAvatar(e: Event) {
 
 async function loadAvatar() {
     await sleep(1000);
-    isLoading.value = false;
+    // isLoading.value = false;
 }
 </script>
 
