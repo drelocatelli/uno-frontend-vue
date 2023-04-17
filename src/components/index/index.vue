@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue';
+import {onMounted} from 'vue';
 import './index.scss';
 import '../../basic.scss';
 import '../../components.css';
@@ -9,6 +9,7 @@ import LoginComponent from '../login/login.component.vue';
 import UserService from '../../services/user';
 import useAuthStore from '../../store/auth/auth';
 import { storeToRefs } from 'pinia';
+import CardsFallLoading from '../loading/cardsFall/cardsFall.component.vue';
 
 const authStore = storeToRefs(useAuthStore());
 const isAuthLoading = authStore.auth.value.state == 'loading';
@@ -21,17 +22,18 @@ onMounted(async () => {
         await UserService.avatarSeed();
     }
 });
-
 </script>
 
 <template>
-    <div class="container">
-        <a href="/">
-            <RepelFx v-bind:off="authStore.auth.value.state == 'loading'">
-                <img src="assets/img/logo.png" class="logo" alt="logo" />
-            </RepelFx>
-        </a>
-        <img src="assets/img/loading/loading.svg" class="initialLogo" style="opacity: 0;" />
-        <LoginComponent />
-    </div>
+    <CardsFallLoading :isLoading="authStore.auth.value.state == 'loading'">
+        <div class="container">
+            <a href="/">
+                <RepelFx :off="authStore.auth.value.state == 'loading'">
+                    <img src="assets/img/logo.png" class="logo" alt="logo" />
+                </RepelFx>
+            </a>
+            <img src="assets/img/loading/loading.svg" class="initialLogo" style="opacity: 0;" />
+            <LoginComponent />
+        </div>
+    </CardsFallLoading>
 </template>

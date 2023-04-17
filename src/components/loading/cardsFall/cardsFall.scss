@@ -1,0 +1,28 @@
+.cardsFall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: -webkit-fill-available;
+    height: 100vh;
+    overflow: hidden;
+    transition: opacity 3s ease-in-out;
+    opacity: 1;
+
+    .card__loading {
+        background-image: var(--bgUrl);
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 125px;
+        height: 179px;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    @keyframes blurEnd {
+        from {
+        }
+        to {
+            opacity: 0;
+        }
+    }
+}
