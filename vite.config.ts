@@ -7,7 +7,7 @@ export default defineConfig({
     template: {
       transformAssetUrls: {
         includeAbsolute: false,
-      }
+      },
     }
   })],
   server: {
